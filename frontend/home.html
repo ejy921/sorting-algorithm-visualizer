@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <title>Sorting Algorithm Visualizer</title>
+    </head>
+
+    <body>
+        <div class="tabs">
+            <input type="radio" name="tabs" id="tabone" checked="checked">
+            <label for="tabone">Bubble Sort</label>
+            <div class="tab">
+                <div class="input-group">
+                    <h2>Bubble Sort</h2>
+                    <label>Array<input type="text" name="array"></label>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="drop-button">Randomize</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <button id="random-size">Random size</button>
+                          <button id="choose-size">Choose size</button>
+                        </div>
+                      </div>
+                    <div id="chooseSize" class="choosing-size" style="display: none;">
+                        <input type="number" name="array-size">
+                    </div>
+                </div>
+            </div>
+        
+            <input type="radio" name="tabs" id="tabtwo">
+            <label for="tabtwo">Insertion Sort</label>
+            <div class="tab">
+                <div class="input-group">
+                    <h2>Insertion Sort</h2>
+                    <label>Array<input type="text" name="array"></label>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="drop-button">Randomize</button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <a href="#">Link 1</a>
+                          <a href="#">Link 2</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        
+            <input type="radio" name="tabs" id="tabthree">
+            <label for="tabthree">Insertion Sort</label>
+            <div class="tab">
+                <div class="input-group">
+                    <h2>Quick Sort</h2>
+                    <label>Array<input type="text" name="array"></label>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="drop-button">Randomize</button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <a href="#">Link 1</a>
+                          <a href="#">Link 2</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.drop-button')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                    }
+                }
+            }
+
+            document.getElementById("chooseSize").addEventListener("click", function() {
+                // Toggle the display of the hidden divs
+                var hiddenDiv = document.getElementsById("chooseSize");
+                if (hiddenDiv.style.display === "none" || hiddenDiv.style.display === "") {
+                    hiddenDiv.style.display = "block";
+                } else {
+                    hiddenDiv.style.display = "none";
+                }
+            });
+        </script>
+    </body>
+</html>
