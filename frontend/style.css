@@ -145,5 +145,12 @@ body {
   .show {display:block;}
 
   .choosing-size {
-    background-color: white;
+    width: 70px;
+  }
+  .choosing-size input {
+    width: 50px;
+    text-align: center;
+  }
+  .choosing-size input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
   }
