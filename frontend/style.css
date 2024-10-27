@@ -66,6 +66,7 @@ body {
     display: flex;
     align-items: center;
     width: 100%; 
+    margin-bottom: 20px;
   }
   .input-group h2 {
     width: 290px;
@@ -75,7 +76,7 @@ body {
     color: #f3d5df;
     font-size: 20px;
     order: initial;
-    margin-left: 150px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     cursor: default;
@@ -146,6 +147,7 @@ body {
 
   .choosing-size {
     width: 70px;
+    margin-left: 50px;
   }
   .choosing-size input {
     width: 50px;
@@ -153,4 +155,47 @@ body {
   }
   .choosing-size input[type=number]::-webkit-inner-spin-button {
     opacity: 1
+  }
+
+  .sort-button {
+    margin-left: auto;
+    margin-right: 30px;
+    background-color: #f3d5df;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    padding-inline: 15px;   
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    box-shadow:
+    0px 3px 1px 2px #a17281; 
+  }
+
+  .sort-button:active { 
+    box-shadow:
+    0px 3px 1px 2px #683a49; 
+    transform: translateY(1px); 
+    /* Moving button 4px to y-axis */ 
+  } 
+
+
+  .animation-container {
+    width: 90%;             
+    margin-left: 20px;
+    text-align: center; 
+    display: block;             /* Display as a block to appear below */
+    margin-top: 10px;           /* Add some spacing above */
+  }
+
+  .animation-container p {
+    width: 70%;
+    margin-left: 200px;
+    margin-top: 70px;
+  }
+
+  .animation-container img {
+    width: 600px;               /* Image width */
+    max-width: 100%;            /* Responsive adjustment */
+    height: auto;               /* Maintain aspect ratio */
   }
