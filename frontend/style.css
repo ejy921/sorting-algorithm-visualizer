@@ -184,6 +184,7 @@ body {
     width: 90%;             
     margin-left: 20px;
     text-align: center; 
+    align-items: center;
     display: block;             /* Display as a block to appear below */
     margin-top: 10px;           /* Add some spacing above */
   }
@@ -195,7 +196,6 @@ body {
   }
 
   .animation-container img {
-    width: 600px;               /* Image width */
-    max-width: 100%;            /* Responsive adjustment */
-    height: auto;               /* Maintain aspect ratio */
+    width: 65%;      
+    margin-left: 20%;/* Maintain aspect ratio */
   }

@@ -43,22 +43,26 @@
             <div class="tab">
                 <div class="input-group">
                     <h2>Insertion Sort</h2>
-                    <label>Array<input type="text" id="insertion-array-input" name="array"></label>
+                    <label>Array<input type="text" id="array-input" name="array"></label>
                     <div class="dropdown">
-                        <button onclick="dropdownFunction()" class="drop-button">Randomize array</button>
+                        <button onclick="dropdownFunction(this)" class="drop-button">Randomize array</button>
                         <div id="myDropdown" class="dropdown-content">
                             <button onclick="randomSizeFunction()" id="random-size">Random size</button>
-                            <button onclick="chooseSizeFunction()" id="choose-size">Choose size</button>
+                            <button onclick="chooseSizeFunction(this)" id="choose-size">Choose size</button>
                         </div>
                     </div>
                     <div id="chooseSize" class="choosing-size" style="display: none;">
                         <label>Size<input type="number" name="array-size"></label>
                     </div>
 
-                    <button onclick="sortArrayfunction()" class="sort-button">Sort Array!</button>
-                    <div class="animation-container">
-                        <img id="animation-frame-insertion" src="" alt="Sorting Animation" width="600" >
-                    </div>
+                    <button onclick="sortArrayfunction('insertion')" class="sort-button">Sort Array!</button>
+                </div>
+
+                <div class="animation-container">
+                    <p>Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
+                        If you choose to input a random array, you can also either randomize the size, or input the size you want!
+                    </p>
+                    <img id="animation-frame-insertion" src="" alt="Sorting Animation" style="display: none;">
                 </div>
             </div>
         
@@ -67,23 +71,26 @@
             <div class="tab">
                 <div class="input-group">
                     <h2>Quick Sort</h2>
-                    <label>Array<input type="text" id="quick-array-input" name="array"></label>
+                    <label>Array<input type="text" id="array-input" name="array"></label>
                     <div class="dropdown">
-                        <button onclick="dropdownFunction()" class="drop-button">Randomize array</button>
+                        <button onclick="dropdownFunction(this)" class="drop-button">Randomize array</button>
                         <div id="myDropdown" class="dropdown-content">
                             <button onclick="randomSizeFunction()" id="random-size">Random size</button>
-                            <button onclick="chooseSizeFunction()" id="choose-size">Choose size</button>
+                            <button onclick="chooseSizeFunction(this)" id="choose-size">Choose size</button>
                         </div>
                     </div>
                     <div id="chooseSize" class="choosing-size" style="display: none;">
                         <label>Size<input type="number" name="array-size"></label>
                     </div>
 
-                    <button onclick="sortArrayfunction()" class="sort-button">Sort Array!</button>
+                    <button onclick="sortArrayfunction('quick')" class="sort-button">Sort Array!</button>
                 </div>
 
                 <div class="animation-container">
-                    <img id="animation-frame-quick" src="" alt="Sorting Animation" width="600" >
+                    <p>Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
+                        If you choose to input a random array, you can also either randomize the size, or input the size you want!
+                    </p>
+                    <img id="animation-frame-bubble" src="" alt="Sorting Animation" width="600" style="display: none;">
                 </div>
             </div>
         </div>

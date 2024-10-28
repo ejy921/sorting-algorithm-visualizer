@@ -76,6 +76,30 @@ function shuffleArray(array) {
     return array;
 }
 
+
+async function updateFrame() {
+    const response = await fetch(`/frames/${currentFrame}`);
+    
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        animationFrameImage.src = url; // Update the image source to the new frame
+        hiddenImage.style.display = "block"; // Show the image
+        currentFrame++;
+
+        // Stop the animation when all frames have been shown
+        if (currentFrame >= totalFrames) {
+            clearInterval(frameInterval); // Stop the interval
+            currentFrame = 0; // Reset frame index if you want to restart the animation later
+            hiddenImage.style.display = "none"; // Hide the image after animation
+        }
+    } else {
+        console.error("No more frames or an error occurred");
+        hiddenImage.style.display = "none"; // Hide the image if there's an error
+        clearInterval(frameInterval); // Stop the interval
+    }
+}
+
 async function sortArrayFunction(sortType) {
     // Get array from input
     const checkedTab = document.querySelector(`input[name="tabs"]:checked`);
@@ -103,13 +127,28 @@ async function sortArrayFunction(sortType) {
         },
         body: JSON.stringify({ array: array, algorithm: sortType }) // sending array + which algorithm
     })
-    if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    if (response.ok) {
+        const data = await response.json();
+        console.log("Response data: ", data); // Log the response data
+        console.log("Frame URLs: ", data.frame_urls);
+        
+        // Preload images
+        await preloadImages(data.frame_urls); // Ensure images are preloaded
+
+        // Display frames in sequence
+        for (let i = 0; i < data.frame_urls.length; i++) {
+            // Set the source of the image to the current frame
+            hiddenImage.src = data.frame_urls[i];
+            await new Promise(resolve => setTimeout(resolve, 500)); // Wait for 0.5 seconds before showing the next frame
+        }
+
+    } else {
+        console.error("Error sending array to Python:", response.statusText);
     }
 
     // Log the raw response
-    const rawText = await response.text();
-    console.log("Raw response:", rawText);  // Log the raw response for debugging
+    // const rawText = await response.text();
+    // console.log("Raw response:", rawText);  // Log the raw response for debugging
 
     // Now try to parse it as JSON
     const result = JSON.parse(rawText);
@@ -118,27 +157,23 @@ async function sortArrayFunction(sortType) {
     console.log("Sorted array:", result.sorted_array);
 }
 
-function startAnimation() {
-    let currentFrame = 0;
-    const imgElement = document.getElementById('animation-frame-${algorithm}');
-
-    function updateFrame() {
-        fetch('/frames/${currentFrame}')
-            .then(response => {
-                if (response.ok) {
-                    return response.blob();
-                } else {
-                    throw new Error("No more frames");
-                }
-            })
-            .then(blob => {
-                imgElement.src = URL.createObjectURL(blob);
-                currentFrame++;
-                setTimeout(updateFrame, 100);
-            })
-            .catch(error => console.error(error));
-    }
-
-    updateFrame();s
+async function preloadImages(frameUrls) {
+    console.log("Preloading images...");
+    const promises = frameUrls.map(url => {
+        return new Promise(resolve => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => {
+                console.log(`Image preloaded: ${url}`);
+                resolve(); // Resolve when the image is loaded
+            };
+            img.onerror = () => {
+                console.error(`Error preloading image: ${url}`);
+                resolve(); // Resolve on error to not block the rest
+            };
+        });
+    });
+    await Promise.all(promises); // Wait until all images are preloaded
+    console.log("All images preloaded.");
 }
 

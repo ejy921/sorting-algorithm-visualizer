@@ -10,42 +10,52 @@ from sorting import BubbleSort, QuickSort, InsertionSort
 app = Flask(__name__)
 CORS(app, resources={r"/sort-array": {"origins": "http://127.0.0.1:5500"}})
 
-FRAME_FOLDER = 'frames'
+FRAME_FOLDER = r'\backend\frames'
 os.makedirs(FRAME_FOLDER, exist_ok=True)
 
 import matplotlib.pyplot as plt
 import os
 
 def visualizer(array, algorithm):
-    plt.clf()  # Clear the figure
+    plt.clf() 
     fig, ax = plt.subplots()
+    fig.patch.set_facecolor('#2a152e')  # Change 'lightgray' to your desired color
+    ax.set_facecolor('#2a152e')
     ax.set_xlim(0, len(array))
     ax.set_ylim(0, int(1.1 * max(array)))
     ax.axis('off')
     plt.grid(False)
-    plt.title(f'{algorithm.__name__.capitalize()} Sort Animation')  # Use the function name
+    plt.title(f'{algorithm.__name__.capitalize()} Sort Animation') 
 
-    # Clear any existing frames in the folder (optional)
+    # Clear any existing frames in the folder
     for filename in os.listdir(FRAME_FOLDER):
         file_path = os.path.join(FRAME_FOLDER, filename)
         if os.path.isfile(file_path):
             os.remove(file_path)
 
-    # Call the sorting algorithm, which should yield each state
-    sorted_array = list(algorithm(array))  # Convert generator to list if needed
+    frame_urls = []
 
-    for i, step in enumerate(sorted_array):
+    for i, step in enumerate(algorithm(array)):
         plt.clf()
         ax = plt.gca()
-        ax.bar(range(len(step)), step, align="edge")
+        ax.axis('off')
+        bars = ax.bar(range(len(step)), step, align="edge", color="#d43965")
+
+        for bar in bars:
+            yval = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width() / 2, yval, int(yval), 
+                    ha='center', va='bottom', color='#d43965', size='medium') 
 
         # Save each step as a frame
         frame_path = os.path.join(FRAME_FOLDER, f"frame_{i}.png")
         plt.savefig(frame_path)
+        frame_urls.append(f"/frames/frame_{i}")
+
+        plt.pause(0.005)
 
     plt.close(fig)
     
-    return sorted_array  # Return the final sorted array
+    return frame_urls
 
 # Route to initiate sorting and generate frames
 @app.route('/sort-array', methods=['POST'])
@@ -68,9 +78,11 @@ def sort_array():
 
     # Visualize sorting and generate frames
     sorted_array = visualizer(array, sorter)
-    return jsonify({"sorted_array": sorted_array})
 
-# Serve frames sequentially for animation
+    # Prepare frame URLs
+    frame_urls = [f"http://127.0.0.1:5000/frames/{i}" for i in range(len(sorted_array))]
+    return jsonify({"sorted_array": sorted_array, "frame_urls": frame_urls})
+
 @app.route('/frames/<int:frame_id>', methods=['GET'])
 def get_frame(frame_id):
     frame_path = os.path.join(FRAME_FOLDER, f"frame_{frame_id}.png")
@@ -78,6 +90,7 @@ def get_frame(frame_id):
         return send_file(frame_path, mimetype='image/png')
     else:
         return jsonify({"error": "Frame not found"}), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
