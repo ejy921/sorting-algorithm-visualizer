@@ -1,5 +1,5 @@
-function dropdownFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function dropdownFunction(myDropDownID) {
+    document.getElementById(myDropDownID).classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it
@@ -21,25 +21,19 @@ function chooseSizeFunction(button) {
     const inputGroup = button.closest('.input-group');
     const hiddenDiv = inputGroup.querySelector('.choosing-size');
 
-    // Toggle the display of the div
-    if (hiddenDiv.style.display === "none" || hiddenDiv.style.display === "") {
-        hiddenDiv.style.display = "block";
-    } else {
-        hiddenDiv.style.display = "none";
-    }
+    hiddenDiv.style.display = "block";
 }
 
-function randomSizeFunction() {
+function randomSizeFunction(button) {
     // Generate a random number between 2 and 20
     var randomNumber = Math.floor(Math.random() * (20 - 2 + 1)) + 2;
 
-    var inputField = document.querySelector('input[name="array-size"]');
+    var inputGroup = button.closest('.input-group');
+    var inputField = inputGroup.querySelector('input[name="array-size"]');
     inputField.value = randomNumber;
-
-    var hiddenDiv = document.getElementById("chooseSize");
-    if (hiddenDiv.style.display === "none" || hiddenDiv.style.display === "") {
-        hiddenDiv.style.display = "block";
-    }
+    var hiddenDiv = inputGroup.querySelector('.choosing-size');
+    
+    hiddenDiv.style.display = "block";
 
     generateArray(randomNumber);
 }
@@ -48,24 +42,27 @@ function randomSizeFunction() {
 document.addEventListener('input', function(event) {
     if (event.target.matches('input[name="array-size"]')) {
         var size = event.target.value;
-        var inputGroup = event.target.closest('.input-group'); // Find the closest input group
-        var arrayInput = inputGroup.querySelector('.array-input'); // Find the associated array input
-        generateArray(size, arrayInput); // Pass the correct array input to generateArray
+        var inputGroup = event.target.closest('.input-group');
+        var arrayInput = inputGroup.querySelector('.array-input');
+        generateArray(size, arrayInput);
     }
 });
 
 function generateArray(size) {
-    // console.log("generateArray called with size:", size);
-
-    var arrayInput = document.querySelector('input[name="array"]');
+    var checkedTab = document.querySelector('input[name="tabs"]:checked');
+    const index = Array.from(document.querySelectorAll('input[name="tabs"]')).indexOf(checkedTab);
+    var tabElements = document.querySelectorAll('.tab');
+    var tabElement = tabElements[index];
+    var inputGroup = tabElement.querySelector('.input-group');
+    var arrayInput = inputGroup.querySelector('#array-input'); 
+    
     var newArray = [];
     for (var i = 1; i <= size; i++) {
-        newArray.push(i);
+        newArray.push(Math.floor(Math.random() * 100));
     }
 
     var shuffledArray = shuffleArray(newArray);
-    arrayInput.value = shuffledArray.join(", ");
-    // console.log("Generated array in input box:", arrayInput.value);
+    arrayInput.value = shuffledArray.join(", "); 
 }
 
 function shuffleArray(array) {
@@ -114,8 +111,8 @@ async function sortArrayFunction(sortType) {
     let array = arrayInput.split(',').map(Number);
     console.log(array);
 
-    const hiddenImage = document.getElementById('animation-frame-bubble');
-    const paragraph = inputGroup.nextElementSibling.querySelector('p');
+    const hiddenImage = document.getElementById(`animation-frame-${sortType}`);
+    const paragraph = hiddenImage.closest('.animation-container').querySelector('p');
     hiddenImage.style.display = 'block';
     paragraph.style.display = 'none';
 

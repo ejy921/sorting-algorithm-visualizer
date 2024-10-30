@@ -17,9 +17,9 @@
                         <h2>Bubble Sort</h2>
                         <label>Array<input type="text" id="array-input" name="array"></label>
                         <div class="dropdown">
-                            <button onclick="dropdownFunction(this)" class="drop-button">Randomize array</button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <button onclick="randomSizeFunction()" id="random-size">Random size</button>
+                            <button onclick="dropdownFunction('myDropdownBubble')" class="drop-button">Randomize array</button>
+                            <div id="myDropdownBubble" class="dropdown-content">
+                                <button onclick="randomSizeFunction(this)" id="random-size">Random size</button>
                                 <button onclick="chooseSizeFunction(this)" id="choose-size">Choose size</button>
                             </div>
                         </div>
@@ -30,9 +30,11 @@
                     </div>
 
                     <div class="animation-container">
-                        <p>Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
-                            If you choose to input a random array, you can also either randomize the size, or input the size you want!
+                        <p id="intro">Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
+                            If you choose to input a random array, you can also either randomize the size, or input the size you want! Please not that the maximum
+                            number is 100.
                         </p>
+                        <p id="wait" style="display: none;">Please wait a moment...</p>
                         <img id="animation-frame-bubble" src="" alt="Sorting Animation" width="600" style="display: none;">
                     </div>
 
@@ -45,9 +47,9 @@
                     <h2>Insertion Sort</h2>
                     <label>Array<input type="text" id="array-input" name="array"></label>
                     <div class="dropdown">
-                        <button onclick="dropdownFunction(this)" class="drop-button">Randomize array</button>
-                        <div id="myDropdown" class="dropdown-content">
-                            <button onclick="randomSizeFunction()" id="random-size">Random size</button>
+                        <button onclick="dropdownFunction('myDropdownInsertion')" class="drop-button">Randomize array</button>
+                        <div id="myDropdownInsertion" class="dropdown-content">
+                            <button onclick="randomSizeFunction(this)" id="random-size">Random size</button>
                             <button onclick="chooseSizeFunction(this)" id="choose-size">Choose size</button>
                         </div>
                     </div>
@@ -55,13 +57,15 @@
                         <label>Size<input type="number" name="array-size"></label>
                     </div>
 
-                    <button onclick="sortArrayfunction('insertion')" class="sort-button">Sort Array!</button>
+                    <button onclick="sortArrayFunction('insertion')" class="sort-button">Sort Array!</button>
                 </div>
 
                 <div class="animation-container">
                     <p>Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
-                        If you choose to input a random array, you can also either randomize the size, or input the size you want!
+                        If you choose to input a random array, you can also either randomize the size, or input the size you want! Please not that the maximum
+                        number is 100.
                     </p>
+                    <p>Please wait a moment...</p>
                     <img id="animation-frame-insertion" src="" alt="Sorting Animation" style="display: none;">
                 </div>
             </div>
@@ -73,8 +77,8 @@
                     <h2>Quick Sort</h2>
                     <label>Array<input type="text" id="array-input" name="array"></label>
                     <div class="dropdown">
-                        <button onclick="dropdownFunction(this)" class="drop-button">Randomize array</button>
-                        <div id="myDropdown" class="dropdown-content">
+                        <button onclick="dropdownFunction('myDropdownQuick')" class="drop-button">Randomize array</button>
+                        <div id="myDropdownQuick" class="dropdown-content">
                             <button onclick="randomSizeFunction()" id="random-size">Random size</button>
                             <button onclick="chooseSizeFunction(this)" id="choose-size">Choose size</button>
                         </div>
@@ -83,13 +87,15 @@
                         <label>Size<input type="number" name="array-size"></label>
                     </div>
 
-                    <button onclick="sortArrayfunction('quick')" class="sort-button">Sort Array!</button>
+                    <button onclick="sortArrayFunction('quick')" class="sort-button">Sort Array!</button>
                 </div>
 
                 <div class="animation-container">
                     <p>Hello! Please either input an array of your choice (MAX LENGTH: 20), or you can have the program randomize an array for you.
-                        If you choose to input a random array, you can also either randomize the size, or input the size you want!
+                        If you choose to input a random array, you can also either randomize the size, or input the size you want! Please not that the maximum
+                        number is 100.
                     </p>
+                    <p>Please wait a moment...</p>
                     <img id="animation-frame-bubble" src="" alt="Sorting Animation" width="600" style="display: none;">
                 </div>
             </div>
