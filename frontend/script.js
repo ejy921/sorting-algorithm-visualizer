@@ -113,8 +113,11 @@ async function sortArrayFunction(sortType) {
 
     const hiddenImage = document.getElementById(`animation-frame-${sortType}`);
     const paragraph = hiddenImage.closest('.animation-container').querySelector('p');
+    const waitMessage = hiddenImage.closest('#wait');
     hiddenImage.style.display = 'block';
     paragraph.style.display = 'none';
+    console.log("Wait message");
+    waitMessage.style.display = 'block';
 
     // Send array to backend
     const response = await fetch('http://127.0.0.1:5000/sort-array', {
